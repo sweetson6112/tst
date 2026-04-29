@@ -13,12 +13,16 @@ from pathlib import Path
 # TEXT EXTRACTION
 # ──────────────────────────────────────────────
 
-def extract_text(pdf_path: str) -> str:
-    result = subprocess.run(["pdftotext", "-layout", pdf_path, "-"],
-                            capture_output=True, text=True)
-    if result.returncode != 0:
-        raise RuntimeError(f"pdftotext failed: {result.stderr}")
-    return result.stdout
+import pdfplumber
+
+def extract_text(pdf_path):
+    text = ""
+    with pdfplumber.open(pdf_path) as pdf:
+        for page in pdf.pages:
+            extracted = page.extract_text()
+            if extracted:
+                text += extracted + "\n"
+    return text
 
 
 # ──────────────────────────────────────────────
