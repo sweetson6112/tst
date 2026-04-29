@@ -546,7 +546,7 @@ def parse_ooc_pdf(pdf_path: str) -> dict:
 
 if __name__ == '__main__':
     pdf_path = sys.argv[1] if len(sys.argv) > 1 else '/mnt/user-data/uploads/3.pdf'
-    out_dir  = sys.argv[2] if len(sys.argv) > 2 else '/home/claude'
+    out_dir  = sys.argv[2] if len(sys.argv) > 2 else '/tmp/output'
     os.makedirs(out_dir, exist_ok=True)
 
     data  = parse_ooc_pdf(pdf_path)
